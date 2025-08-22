@@ -1,0 +1,19 @@
+# WoL Webhook Server systemd unit
+# --------------------------------
+# This unit file manages the webhook server defined in opt/wol/wol-server.py.
+# It ensures the server starts on boot and restarts on failure.
+# Place this file in /etc/systemd/system/ on the relay host.
+
+[Unit]
+Description=WoL Webhook Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/wol/wol-server.py
+Restart=always
+RestartSec=2
+User=root
+
+[Install]
+WantedBy=multi-user.target
